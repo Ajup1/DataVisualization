@@ -100,18 +100,39 @@
 
 
 
-    <script>
-
-        function myFunction(){
+   <script>
+        //Remove Entire Axis
+        function myFunction(data){
             var ddl = document.getElementById("select_list");
-            console.log("this",ddl)
+          
             var selectedValue = ddl.options[ddl.selectedIndex].value;
+             // console.log("this",selectedValue)
             if (selectedValue != " ")
             {
-                alert("Please select a card type");
-            }
-        };
-    </script>
+                console.log("Hide Axis",selectedValue);
+                   d3.selectAll(".dimension")
+                   .filter(function(d) { return d == selectedValue; })
+                 .selectAll(".tick text")
+                    .remove(); 
+             }
+    };
+    function hideAxisFuction(data){
+            var ddl = document.getElementById("select_list");
+          
+            var selectedValue = ddl.options[ddl.selectedIndex].value;
+             // console.log("this",selectedValue)
+            if (selectedValue != " ")
+            {
+               d3.selectAll(".dimension")
+                   .filter(function(d) { return d == selectedValue; })
+                 //.selectAll(".tick text")
+                    .remove(); 
+             }
+    };
+</script>
+
+    <input type="button" id="removeAxisQuery" value="Remove Tick" onclick="myFunction();" />
+     <input type="button" id="hideAxisQuery" value="Hide Axis" onclick="hideAxisFuction();" />
 <!--    <input type=button onClick="parent.location='Scatter.html'"-->
 <!--           value='click here for Scatter Plot'>-->
     <input type="button" id="btnQueryString" value="Send" />
