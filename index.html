@@ -84,7 +84,7 @@
 <!--<button id="hideticks">Hide Ticks</button>-->
 <button id="hide-ticks">Hide Ticks</button>
 <button id="show-ticks">Show Ticks</button>
-<button title="Zoom in on selected data" id="keep-data">Keep</button>
+<button title="Zoom in on selected data" id="keep-data" onclick="keep_selected_data()">Keep</button>
 <button id="3dayavg-data">Filter Row</button>
 <script type="text/javascript">
 
@@ -101,7 +101,9 @@
 
 
    <script>
-        //Remove Entire Axis
+
+
+       //Remove Entire Axis
         function myFunction(data){
             var ddl = document.getElementById("select_list");
           
@@ -182,7 +184,19 @@
             d3.select("body").attr("class", "dark");
         });
 
+    function keep_selected_data() {
 
+        lower_range = exte[0][0];
+        upper_range = exte[0][1];
+
+        parallelCoordinates([], false)
+        data = d3.csv.parse(contents);
+        dataToFilter = data;
+        dataToFilter = dataToFilter.filter(d => d.new_deaths >= exte[0][0])
+        dataToFilter = dataToFilter.filter(d => d.new_deaths <= exte[0][1])
+        parallelCoordinates(dataToFilter, false);
+        parcoords.updateAxes();
+    }
 
     var colors = {
         "A": [28,100,52],
@@ -458,6 +472,7 @@
                 }
             }
 
+
             function onClickTick() {
                 resetSelectedCountryAlphabet();
                // console.log("This is the one clicked:", this.innerHTML, (/[\W\S_]/).test(this.innerHTML));
@@ -508,7 +523,7 @@
         var uploader = document.getElementById("uploader");
         var reader = new FileReader();
 
-        reader.readAsText(document.getElementById("uploader").files[0]);
+        // reader.readAsText(document.getElementById("uploader").files[0]);
 
         reader.onload = function (e) {
             contents = e.target.result;

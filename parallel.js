@@ -643,26 +643,13 @@ window.onresize = function() {
     brush();
 };
 
-// Remove all but selected from the dataset
-function keep_data() {
-    new_data = actives();
-    if (new_data.length == 0) {
-        alert("I don't mean to be rude, but I can't let you remove all the data.\n\nTry removing some brushes to get your data back. Then click 'Keep' when you've selected data you want to look closer at.");
-        return false;
-    }
-    data = new_data;
-    rescale();
-}
 
 // Exclude selected from the dataset
 function exclude_data() {
-    new_data = _.difference(data, actives());
-    if (new_data.length == 0) {
-        alert("I don't mean to be rude, but I can't let you remove all the data.\n\nTry selecting just a few data points then clicking 'Exclude'.");
-        return false;
-    }
+
     data = new_data;
     rescale();
+
 }
 
 function remove_axis(d,g) {
